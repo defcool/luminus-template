@@ -36,8 +36,12 @@
   "Enables configuration for testing."
   []
   (dev)
-  (set-env! :resource-paths #(conj % "env/test/resources"))<% if cljs %>
-  (merge-env! :source-paths <<dev-cljs.test.source-paths>>)<% endif %>
+  (set-env!
+   :source-paths #(conj % "test/clj")
+   :resource-paths #(conj % "env/test/resources"))
+  <% if cljs %>
+  (merge-env! :source-paths <<dev-cljs.test.source-paths>>)
+  <% endif %>
   (.. System (getProperties) (setProperty "conf" "test-config.edn"))
   identity)
 
